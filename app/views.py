@@ -6,10 +6,23 @@ This file creates your application.
 """
 import os
 from app import app
-from flask import render_template, request, redirect, url_for, flash, session, abort
+from flask import render_template, request, redirect, url_for, flash, session, abort, send_from_directory
 from werkzeug.utils import secure_filename
 from .forms import UploadForm
 
+##
+# #Helper Functions 
+###
+
+def get_uploaded_images():
+    filename=[]
+    rootdir = os.getcwd()
+    for subdir, dirs, files in os.walk(rootdir + app.config['UPLOAD_FOLDER']):
+        for file in files:
+            filename_lst = (os.path.join(subdir, file))
+            filename.append(os.path.basename(filename_lst))
+    return filename
+        
 
 ###
 # Routing for your application.
@@ -47,6 +60,18 @@ def upload():
             return render_template('upload.html', form=form)
     elif request.method == 'GET':
         return render_template('upload.html', form=form)
+
+
+@app.route('/uploads/<filename>')
+def get_image(filename):
+    spec_img = send_from_directory(os.path.join(os.getcwd(),
+    app.config['UPLOAD_FOLDER']), filename)
+    return spec_img
+
+
+@app.route('/files')
+def files():
+    return render_template('files.html', image_gal = get_uploaded_images())
 
 
 @app.route('/login', methods=['POST', 'GET'])
