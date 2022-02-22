@@ -12,13 +12,18 @@ body {
 }
 
 img{
+    display: grid;
+    justify-items: center;
     height: 290px;
     width: 300px; 
     object-fit:cover;
-    
 }
 
 img:hover{
     object-fit:scale-down;
-    animation: object-fit 2.1s finite; 
+}
+
+.container :nth-child(1){
+    display: grid;
+    justify-content: center;
 }
