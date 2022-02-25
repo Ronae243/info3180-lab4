@@ -5,15 +5,14 @@ body {
 .grid{
     display: grid;
     grid-template-columns: 300px  300px  300px;
-    justify-items: center;
     column-gap: 15px;
     row-gap: 15px;
-
 }
+
+
 
 img{
     display: grid;
-    justify-items: center;
     height: 290px;
     width: 300px; 
     object-fit:cover;
